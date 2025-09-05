@@ -1,6 +1,7 @@
 import db from "./db.js";
-import { UserEntity } from "./entities/user.js";
+import { User, UserEntity } from "./entities/user.js";
 
-const queryBuilder = db.createQueryBuilder(UserEntity, "user");
+const entityManager = db.createEntityManager();
 
-const result = await queryBuilder.getOne()
+const result = await entityManager.find(UserEntity, {});
+console.log(result)

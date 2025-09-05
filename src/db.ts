@@ -1,17 +1,30 @@
 import { DataSource } from "typeorm";
-import path from "path";
-import { cwd } from "process";
 import { UserEntity } from "./entities/user.js";
-import { UserEntity1757022351222 } from "./migrations/1757022351222-UserEntity.js";
-import { ChangeNameToFullNameInUserEntity1757022493948 } from "./migrations/1757022493948-ChangeNameToFullNameInUserEntity.js";
+import { DB_PATH, MIGRATIONS_DIR } from "./constants.js";
+import { readdir } from "fs/promises";
+import path from "path";
 
-export default new DataSource({
+const migrationsFolder = (await readdir(MIGRATIONS_DIR)).filter((file) =>
+  file.endsWith(".ts")
+);
+
+const migrations: Function[] = [];
+
+for (const migrationFile of migrationsFolder) {
+  const migrationModule = await import(
+    `file://${path.join(MIGRATIONS_DIR, migrationFile)}`
+  );
+  const migrationClass: Function | undefined =
+    migrationModule.default ||
+    Object.values(migrationModule).find((v) => typeof v === "function");
+  if (migrationClass) migrations.push(migrationClass);
+}
+
+const db = new DataSource({
   type: "better-sqlite3",
-  database: path.join(cwd(), "data", "db.sqlite"),
-  enableWAL:true,
+  database: DB_PATH,
   entities: [UserEntity],
-  migrations: [
-    UserEntity1757022351222,
-    ChangeNameToFullNameInUserEntity1757022493948,
-  ],
+  migrations,
 });
+
+export default db;

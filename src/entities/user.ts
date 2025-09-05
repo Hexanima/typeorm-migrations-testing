@@ -5,7 +5,8 @@ export type UUID = `${string}-${string}-${string}${string}-${string}`;
 export interface User {
   id: UUID;
   fullName: string;
-  work: string
+  work: string;
+  hashedPassword: string;
 }
 
 export const UserEntity = new EntitySchema<User>({
@@ -16,10 +17,13 @@ export const UserEntity = new EntitySchema<User>({
       primary: true,
     },
     fullName: {
-        type: "text"
+      type: "text",
     },
     work: {
-      type: "text"
-    }
+      type: "text",
+    },
+    hashedPassword: {
+      type: "text",
+    },
   },
 });

@@ -4,8 +4,9 @@
   "type": "module",
   "scripts": {
     "typeorm": "typeorm-ts-node-esm",
-    "run-migrations": "tsx src/scripts/run-migrations.ts",
-    "run-app": "tsx src/app.ts"
+    "migrate": "tsx src/scripts/run-migrations.ts",
+    "new-migration":"tsx src/scripts/new-migration.ts",
+    "dev": "tsx src/app.ts"
   },
   "devDependencies": {
     "@types/node": "^24.3.1",
@@ -16,6 +17,7 @@
   "dependencies": {
     "better-sqlite3": "^12.2.0",
     "reflect-metadata": "^0.2.2",
+    "sqlite3": "^5.1.7",
     "ts-node": "^10.9.2",
     "typeorm": "^0.3.26"
   }
