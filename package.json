@@ -5,7 +5,7 @@
   "scripts": {
     "typeorm": "typeorm-ts-node-esm",
     "migrate": "tsx src/scripts/run-migrations.ts",
-    "new-migration":"tsx src/scripts/new-migration.ts",
+    "new-migration": "tsx src/scripts/new-migration.ts",
     "dev": "tsx src/app.ts"
   },
   "devDependencies": {
