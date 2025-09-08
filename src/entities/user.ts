@@ -1,6 +1,5 @@
 import { EntitySchema } from "typeorm";
-
-export type UUID = `${string}-${string}-${string}${string}-${string}`;
+import { UUID } from "../utils/types.js";
 
 export interface User {
   id: UUID;

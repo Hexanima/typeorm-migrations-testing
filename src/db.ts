@@ -3,6 +3,9 @@ import { UserEntity } from "./entities/user.js";
 import { DB_PATH, MIGRATIONS_DIR } from "./constants.js";
 import { readdir } from "fs/promises";
 import path from "path";
+import { ProvinceEntity } from "./entities/province.js";
+import { LocalityEntity } from "./entities/locality.js";
+import { CityEntity } from "./entities/city.js";
 
 const migrationsFolder = (await readdir(MIGRATIONS_DIR)).filter((file) =>
   file.endsWith(".ts")
@@ -23,7 +26,7 @@ for (const migrationFile of migrationsFolder) {
 const db = new DataSource({
   type: "better-sqlite3",
   database: DB_PATH,
-  entities: [UserEntity],
+  entities: [UserEntity, ProvinceEntity, LocalityEntity, CityEntity],
   migrations,
 });
 
